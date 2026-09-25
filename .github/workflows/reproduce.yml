@@ -25,6 +25,7 @@ jobs:
       - run: python -m bislab.verify_witness
       - run: python -m bislab.small_dimension_audit
       - run: python -m bislab.exhaustive_quadratic_search --n 5
+      - run: python -m bislab.analyze_collisions
       - uses: actions/upload-artifact@v4
         with:
           name: boolean-invariant-separation-artifacts
