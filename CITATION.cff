@@ -1,0 +1,27 @@
+cff-version: 1.2.0
+message: "If you use this research or software, please cite it as below."
+title: "When Aggregate Boolean Invariants Stop Determining Structure: A Minimal PN-Equivalence Failure and an Infinite Collision Family"
+type: software
+authors:
+  - family-names: "Akhtar"
+    given-names: "Mohammad Amir Khusru"
+    orcid: "https://orcid.org/0000-0002-3432-4199"
+    affiliation: "Usha Martin University"
+year: 2026
+version: "V1"
+doi: "10.5281/zenodo.22974740"
+url: "https://github.com/Arithmetic-Power-Geometry/Boolean-Invariant-Separation"
+repository-code: "https://github.com/Arithmetic-Power-Geometry/Boolean-Invariant-Separation"
+license: "Apache-2.0"
+preferred-citation:
+  type: article
+  authors:
+    - family-names: "Akhtar"
+      given-names: "Mohammad Amir Khusru"
+      orcid: "https://orcid.org/0000-0002-3432-4199"
+      affiliation: "Usha Martin University"
+  title: "When Aggregate Boolean Invariants Stop Determining Structure: A Minimal PN-Equivalence Failure and an Infinite Collision Family"
+  year: 2026
+  version: "V1"
+  doi: "10.5281/zenodo.22974740"
+  url: "https://doi.org/10.5281/zenodo.22974740"
