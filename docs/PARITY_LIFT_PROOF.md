@@ -2,91 +2,64 @@
 
 ## Definitions
 
-Let f:{0,1}^n -> {0,1}. For m>=1 let P_m(z)=z_1 XOR ... XOR z_m and define
+Let (f:{0,1}^n -> {0,1}). For m>=1 let (P_m(z)=z_1 XOR ... XOR z_m) and define
 
-L_m(f)(x,z)=f(x) XOR P_m(z).
+`L_m(f)(x,z)=f(x) XOR P_m(z)`.
 
-Let Phi be the frozen fingerprint consisting of weight, exact deterministic decision-tree depth, output-labelled pointwise certificate profiles, pointwise sensitivity profile, sorted individual influence profile, algebraic degree, and Fourier energy by level.
+Let Phi consist of weight, exact deterministic decision-tree depth, output-labelled pointwise certificate profiles, pointwise sensitivity profile, sorted individual influence profile, algebraic degree, and Fourier energy by level.
 
-## Lemma 1 — pointwise certificates add under disjoint XOR
+## Lemma 1 — certificates under disjoint XOR
 
-For Boolean A(x), B(z) on disjoint variables and every input (x,z),
+For Boolean functions A(x) and B(z) on disjoint variables,
 
-C_{A XOR B}(x,z)=C_A(x)+C_B(z).
+`C_(A XOR B)(x,z) = C_A(x) + C_B(z)`.
 
-### Proof
+Minimum certificates for A and B combine to certify their XOR. Conversely, if the part of an XOR certificate lying in either variable block failed to certify that factor, changing that factor while holding the other block fixed would change the XOR without violating the purported certificate. Hence both parts must be certificates and the sizes add.
 
-Upper bound: take a minimum certificate S_A for A at x and a minimum certificate S_B for B at z. Fixing S_A union S_B fixes both factors and therefore their XOR. Hence C_{A XOR B}(x,z)<=C_A(x)+C_B(z).
+For parity, every input has certificate complexity m. Because nonzero parity is balanced, the output-labelled lifted certificate profiles are obtained from the base values by adding m with equal parity multiplicities. Equality of the base profiles is therefore preserved.
 
-Lower bound: let S be any certificate for A XOR B at (x,z), and split it into S_A and S_B according to the disjoint variable sets. If S_A does not certify A(x), there is x' consistent with S_A with A(x') != A(x). Keeping z fixed gives an input consistent with S on which A XOR B changes, contradiction. Thus S_A certifies A(x). Symmetrically S_B certifies B(z). Therefore |S|>=C_A(x)+C_B(z).
+## Lemma 2 — parity-lift identities
 
-Equality follows.
+For m>=1:
 
-For parity P_m, every input has certificate complexity m. Hence
-C_{L_m(f)}(x,z)=C_f(x)+m.
+1. (L_m(f)) is balanced.
+2. (s_{L_m(f)}(x,z)=s_f(x)+m).
+3. Old-variable influences are unchanged and every fresh parity variable has influence 1.
+4. Every pointwise certificate value increases by m.
+5. The Fourier level-energy polynomial satisfies (E_{L_m(f)}(t)=t^m E_f(t)).
+6. For a non-affine quadratic base function, the algebraic degree remains 2.
+7. (D(L_m(f))=D(f)+m).
 
-Because P_m is balanced for m>=1, for each fixed x exactly 2^{m-1} choices of z yield each output value. Consequently each base certificate value C_f(x)+m appears 2^{m-1} times in each output-labelled certificate profile of L_m(f). Therefore equality of the two base C0/C1 profiles (indeed equality of their union is enough after a nonzero parity lift) implies equality after lifting.
+The sensitivity and influence identities follow directly because every fresh parity coordinate flips the output. In sign representation, the parity factor has Fourier support only on its full m-set, so tensoring shifts Fourier level by m. Adding fresh linear terms does not change a quadratic base degree.
 
-## Lemma 2 — deterministic decision-tree depth adds under XOR with parity
+## Lemma 3 — deterministic XOR composition
 
-For every Boolean f and m>=1,
+For nonconstant Boolean functions A and B on disjoint variable sets,
 
-D(L_m(f))=D(f)+m.
+`D(A XOR B) = D(A) + D(B)`.
 
-### Proof
+The upper bound follows by computing A and B optimally and XORing their outputs. For the lower bound, use the deterministic decision-tree recurrence. Against an arbitrary tree, answer each query so that the decision-tree depth of the current residual in that variable block falls by at most one. If a leaf were reached in fewer than (D(A)+D(B)) queries, at least one residual block would remain nonconstant, giving two completions reaching the same leaf with different XOR outputs. This is impossible. Thus equality holds. Since (D(P_m)=m), the parity-lift depth identity follows.
 
-Upper bound: optimally compute f using D(f) queries, query all m parity variables, and XOR the results.
+## Theorem — persistent aggregate collision
 
-Lower bound: use adversary composition. A deterministic decision tree computing XOR_2(f,P_m) is a classical composition of an outer XOR with two disjoint inner functions. The standard deterministic decision-tree composition theorem gives
-D(XOR_2 o (f,P_m))=D(f)+D(P_m).
-Since D(P_m)=m, the lower bound is D(f)+m.
+Let
 
-For this repository the identity is additionally regression-tested exactly for the frozen pair through m=2. The composition theorem itself is established decision-tree theory and is not a novelty claim.
+`f = x2 x3 XOR x4 XOR x1 x4 XOR x1 x5`
 
-## Lemma 3 — sensitivity
+and
 
-For every (x,z),
-s_{L_m(f)}(x,z)=s_f(x)+m,
-because flipping any fresh parity coordinate always flips the output. Thus the sensitivity multiset is shifted by m and replicated 2^m times.
+`g = x1 x2 XOR x2 x3 XOR x4 XOR x1 x4 XOR x1 x5`.
 
-## Lemma 4 — influences
+For every m>=0,
 
-Influences of the original variables are unchanged under multiplication by an independent sign parity factor. Each fresh parity coordinate has influence 1. Hence equality of sorted base influence profiles is preserved.
+`Phi(L_m(f)) = Phi(L_m(g))`
 
-## Lemma 5 — Fourier level energy
+while (L_m(f)) and (L_m(g)) are not PN-equivalent.
 
-In sign representation,
-(-1)^{L_m(f)(x,z)}=(-1)^{f(x)}(-1)^{P_m(z)}.
-Fourier coefficients tensor, while parity P_m has a single nonzero coefficient on the full m-set. Thus the level-energy generating polynomial satisfies
+For m=0 this is the explicit five-variable witness. For m>=1, equality of the fingerprint follows componentwise from the identities above. The quadratic interaction graphs gain exactly m isolated vertices and otherwise remain unchanged. Their base edge counts are 3 and 4, so the graphs remain non-isomorphic under every lift.
 
-E_{L_m(f)}(t)=t^m E_f(t).
+Therefore a PN-inequivalent pair with identical Phi exists in every dimension n>=5. Combined with the exhaustive n<=4 audit, the first failure dimension is exactly n=5.
 
-Hence equality of Fourier level-energy profiles is preserved.
+## Computational checks
 
-## Lemma 6 — weight and degree
-
-For m>=1, P_m is balanced, so L_m(f) is balanced independently of the base weight. For the frozen non-affine quadratic pair, adjoining only linear parity terms leaves algebraic degree equal to 2.
-
-## Lemma 7 — PN inequivalence of the frozen lifts
-
-The quadratic interaction graph of a degree-two ANF is unchanged except for m newly isolated vertices. Input complementation does not change its quadratic coefficients, and input permutation only relabels vertices.
-
-The frozen f graph has 3 quadratic edges and the frozen g graph has 4. Appending isolated vertices preserves this difference. Hence L_m(f) and L_m(g) are PN-inequivalent for every m>=0.
-
-## Theorem — infinite fingerprint collision family
-
-Let f,g be the frozen five-variable pair in this repository. Then for every m>=0,
-
-Phi(L_m(f)) = Phi(L_m(g))
-
-while
-
-L_m(f) is not PN-equivalent to L_m(g).
-
-Therefore there is a PN-inequivalent pair with identical frozen fingerprint in every dimension n>=5.
-
-Combined with the exhaustive repository audit showing Phi is PN-complete for n<=4, the finite threshold is n*=5.
-
-## Novelty boundary
-
-The individual direct-sum/composition facts for deterministic decision trees and certificate-complexity composition are established subjects. The research claim to audit is the simultaneous preservation of this specific heterogeneous fingerprint, its first PN failure at dimension five, and the resulting all-dimensions n>=5 collision family. This theorem is mathematically established here but remains a NOVELTY CANDIDATE until the targeted literature audit is complete.
+The symbolic theorem is complemented by exact regression checks for m=0,1,2, corresponding to n=5,6,7. These checks verify full-Phi equality and the interaction-graph inequivalence certificate; they are not used as a substitute for the all-dimensions proof.
