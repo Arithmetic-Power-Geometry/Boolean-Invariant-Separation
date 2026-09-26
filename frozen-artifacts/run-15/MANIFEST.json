@@ -1,0 +1,20 @@
+{
+  "source_workflow": {
+    "run_number": 15,
+    "run_id": 36168389033,
+    "head_sha": "1a9e2e1ad8328d7a5423f91d9f4a7928d100ea32",
+    "artifact_id": 10878943131,
+    "artifact_name": "boolean-invariant-separation-artifacts",
+    "artifact_zip_sha256": "733c99b87872283a018c31d31c2d5e09c1a0681aefa02bb52e8aa20faae4588a",
+    "completed_at": "2026-09-25T17:49:34Z"
+  },
+  "files": [
+    {"name":"collision_structure_analysis.json","sha256":"086d9e3d916cdc22cdfa77d5c48fa805a42112aa8267379e947aac3fa46c4310","bytes":7846},
+    {"name":"parity_lift_checks.json","sha256":"66f0af20e5bc5727704be62df66839bc4e881f92a393bb71083c629ebc6c4fde","bytes":1538},
+    {"name":"quadratic_collision_groups.csv","sha256":"bae0fa965d8abe12a657299617ae6167c91e5c0e00ae46b4943c9c6f558b640d","bytes":669},
+    {"name":"quadratic_collision_groups.json","sha256":"717637ff1243af168c921d6e6b0041a7e81e11feed31ef5b4e6437440e75709a","bytes":4414},
+    {"name":"quadratic_search_summary.json","sha256":"7f128bba0e950ae125e177495e59288988ba8da7c040999d5ae6a6cac31e3a5e","bytes":212},
+    {"name":"small_dimension_audit.json","sha256":"02e80fc9d1c736e68b4f6c871b50c4a92e005b65d75e7e7432db78022f4112da","bytes":821},
+    {"name":"witness.json","sha256":"01c2be0bc91f712105caccbef77175bf0f4a0ce9313fbe0e5cfa695cd01162e0","bytes":1132}
+  ]
+}
