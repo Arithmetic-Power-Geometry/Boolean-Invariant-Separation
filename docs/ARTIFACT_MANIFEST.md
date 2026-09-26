@@ -1,18 +1,29 @@
 # Artifact manifest
 
-Every release-quality workflow should produce machine-readable evidence for the claims used later in the manuscript.
+The reproducibility workflow produces machine-readable evidence for the reported computational results.
 
-| Artifact | Meaning |
+| Artifact | Contents |
 |---|---|
-| witness.json | Exact frozen n=5 witness and equality/separation checks |
-| quadratic_search_summary.json | Exhaustive degree<=2 search scope and collision count |
-| quadratic_collision_groups.json | PN-distinct collision representatives |
-| quadratic_collision_groups.csv | Flat audit table for collision groups |
+| `witness.json` | Exact n=5 witness and equality/separation checks |
+| `small_dimension_audit.json` | Exhaustive n<=4 function counts, Phi classes, PN classes, and zero-collision checks |
+| `quadratic_search_summary.json` | Exact five-variable degree-at-most-2 search summary |
+| `quadratic_collision_groups.json` | Cross-PN collision groups and representatives |
+| `quadratic_collision_groups.csv` | Flat audit table for the collision groups |
+| `collision_structure_analysis.json` | Interaction-graph structure of the collision representatives |
+| `parity_lift_checks.json` | Exact finite regression checks for the parity lift |
 
-## Required next artifacts
+## Frozen reproducibility archive
 
-Before a paper claims a first-failure threshold, add an exhaustive n<=4 certificate containing function counts, PN orbit counts, Phi class counts, and a zero-collision assertion.
+A successful complete workflow artifact is preserved at:
 
-Before an asymptotic theorem is claimed, add family-generation artifacts that independently verify each claimed n and record the structural separation statistic.
+`frozen-artifacts/run-15/boolean-invariant-separation-artifacts.zip`
 
-Artifacts are evidence. They do not by themselves establish literature novelty.
+Its integrity metadata is stored in:
+
+`frozen-artifacts/run-15/MANIFEST.json`
+
+The archive contains the exact outputs used to verify the lower-dimensional completeness audit, five-variable quadratic census, explicit witness, structural collision analysis, and parity-lift regression checks.
+
+## Interpretation
+
+The computational artifacts establish exact finite claims and independently check the explicit constructions. The all-dimensions statement additionally uses the symbolic parity-lift argument documented in `PARITY_LIFT_PROOF.md`.
